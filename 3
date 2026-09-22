@@ -1,0 +1,43 @@
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.Random;
+import java.util.Scanner;
+
+public class jumpSearch02 {
+
+    // สร้าง Linked List ที่มีเลขสุ่ม 10 ตัว
+    public static LinkedList<Integer> random_initial() {
+
+        Random rnd = new Random();
+        LinkedList<Integer> nums = new LinkedList<>();
+
+        for (int i = 0; i < 10; i++) {
+            nums.add(rnd.nextInt(100));
+        }
+
+        return nums;
+    }
+
+    // Jump Search
+    public static int jumpSearch(LinkedList<Integer> nums, int target) {
+
+        int n = nums.size();
+
+        if (n == 0) {
+            return -1;
+        }
+
+        int step = (int) Math.sqrt(n);
+        int prev = 0;
+
+        // Jump ไปทีละ block
+        while (prev < n &&
+               nums.get(Math.min(step, n) - 1) < target) {
+
+            prev = step;
+            step += (int) Math.sqrt(n);
+
+            if (prev >= n) {
+                return -1;
+            }
+        }
